@@ -1,0 +1,69 @@
+@model IEnumerable<JobListings.Models.JobListing>
+
+@{
+    ViewData["Title"] = "Job Listings";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+</head>
+<body>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="display-4">Job Listings</h1>
+                <a asp-action="Create" class="btn btn-primary btn-lg">
+                    <i class="fas fa-plus"></i> Post New Job
+                </a>
+            </div>
+        </div>
+    </div>
+            
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">@item.Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@item.Company</h6>
+                        <p class="card-text"><small class="text-muted"><i class="fas fa-map-marker-alt"></i></small></p>
+                        <p class="card-text">@item.Description.Substring(0, Math.Min(100, @item.Description.Length))...</p>
+                        <p class="card-text"><strong class="text-success">@item.Salary.ToString("N0")</strong><small class="text-muted">/ year</small></p>
+                        <p class="card-text"><small class="text-muted"><i class="fas fa-clock"></i>@item.PostedDate.ToString("MMM dd, yyyy")</small></p>
+                        <span class="badge bg-secondary">@item.JobType</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <div class="btn-group w-100" role="group">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">Details</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">Details</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>                     
+        }
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
