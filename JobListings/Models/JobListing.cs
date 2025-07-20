@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 public class JobListing
 {
    [Key]
-   public int JobListingId { get; set; }
+   public int Id { get; set; }
 
    [Required] [StringLength(100)] public string Title { get; set; } = String.Empty;
    [Required] [StringLength(50)] public string Company { get; set; } = String.Empty;
