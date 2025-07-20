@@ -24,7 +24,7 @@ public class ApplicationDbContext : DbContext
             Location = "Osaka, Japan",
             Description = "Develop Robust web application using ASP.NET Core MVC",
             Salary = 5794140,
-            PostedDate = DateTime.Now.AddDays(-5),
+            PostedDate = new DateTime(2025, 7, 15),
             JobType = "Full-time",
             IsActive = true
           },
@@ -36,7 +36,7 @@ public class ApplicationDbContext : DbContext
               Location = "Tokyo, Japan",
               Description = "Develop Robust low level systems using C#",
               Salary = 4282500,
-              PostedDate = DateTime.Now.AddDays(-3),
+              PostedDate = new DateTime(2026, 8, 8),
               JobType = "Full-time",
               IsActive = true   
           }
