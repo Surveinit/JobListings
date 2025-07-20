@@ -1,0 +1,67 @@
+@model JobListings.Models.JobListing
+
+@{
+    ViewData["Title"] = "Job Details";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">@Model.Title</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-4">Company:</dt>
+                                <dd class="col-sm-8">@Model.Company</dd>
+                                
+                                <dt class="col-sm-4">Location:</dt>
+                                <dd class="col-sm-8">@Model.Location</dd>
+                                
+                                <dt class="col-sm-4">Salary:</dt>
+                                <dd class="col-sm-8 text-success font-weight-bold">₹@Model.Salary.ToString("N0") / year</dd>
+                                
+                                <dt class="col-sm-4">Job Type:</dt>
+                                <dd class="col-sm-8">
+                                    <span class="badge bg-secondary">@Model.JobType</span>
+                                </dd>
+                                
+                                <dt class="col-sm-4">Posted:</dt>
+                                <dd class="col-sm-8">@Model.PostedDate.ToString("MMMM dd, yyyy")</dd>
+                                
+                                <dt class="col-sm-4">Status:</dt>
+                                <dd class="col-sm-8">
+                                    @if (Model.IsActive)
+                                    {
+                                        <span class="badge bg-success">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Inactive</span>
+                                    }
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h5>Job Description</h5>
+                        <p class="lead">@Model.Description</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        <div>
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
