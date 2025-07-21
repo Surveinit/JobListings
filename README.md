@@ -98,6 +98,6 @@ dotnet run
 
 ## ✍️ Future plans 
 
--[ ] **Switch to Tailwind**
-- [ ] **Better UI w/ Dark Mode**
+-[X] **Switch to Tailwind**
+- [ ] **Fix Nav bar: Where the current page is not highlighted.**
 -[ ] **Full on JobPortal**: Company can post jobs and individual can apply for job.
