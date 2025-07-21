@@ -98,6 +98,6 @@ dotnet run
 
 ## ✍️ Future plans 
 
--[X] **Switch to Tailwind**
+- [X] **Switch to Tailwind**
 - [ ] **Fix Nav bar: Where the current page is not highlighted.**
--[ ] **Full on JobPortal**: Company can post jobs and individual can apply for job.
+- [ ] **Full on JobPortal**: Company can post jobs and individual can apply for job.
