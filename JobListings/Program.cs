@@ -1,4 +1,5 @@
 using JobListings.Data;
+using JobListings.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 

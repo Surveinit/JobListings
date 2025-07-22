@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using JobListings.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace JobListings.Data;
 
-public class ApplicationDbContext : IdentityDbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
    {
@@ -14,6 +15,7 @@ public class ApplicationDbContext : IdentityDbContext
 
    protected override void OnModelCreating(ModelBuilder modelBuilder)
    {
+      base.OnModelCreating(modelBuilder);
       modelBuilder.Entity<JobListing>().Property(j => j.Salary).HasColumnType("decimal(18,2)");
       
       // Seed Data
