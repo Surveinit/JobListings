@@ -1,4 +1,4 @@
-# JobListing CRUD App
+# 👜 JobListing CRUD App
 
 A **modern, responsive job listing web application** built using **ASP.NET 8 MVC**, **Entity Framework Core**, and **SQLite**, developed and tested on **Ubuntu Linux** with **JetBrains Rider**.
 
