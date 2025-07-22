@@ -18,6 +18,16 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 
 var app = builder.Build();
 
+// Middlewares
+app.UseStaticFiles();
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapDefaultControllerRoute();
+app.MapRazorPages();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
