@@ -1,4 +1,5 @@
 using JobListings.Data;
+using JobListings.Helpers;
 using JobListings.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +18,13 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.SignIn.RequireConfirmedAccount = false;
 }).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
+// Role Seeder call
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await RoleSeeder.SeedRoles(services);
+}
 
 // Middlewares
 app.UseStaticFiles();
