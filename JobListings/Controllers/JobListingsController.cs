@@ -1,5 +1,6 @@
 using JobListings.Data;
 using JobListings.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,7 @@ public class JobListingsController : Controller
    }
    
    // GET: JobListings
+   [AllowAnonymous]
    public async Task<IActionResult> Index()
    {
       var jobListings = await _context.JobListings
@@ -26,6 +28,7 @@ public class JobListingsController : Controller
    }
    
    // GET: JobListings/Details/5
+   [AllowAnonymous]
    public async Task<IActionResult> Details(int? id)
    {
       if (id == null)
@@ -45,12 +48,14 @@ public class JobListingsController : Controller
    }
    
    // GET: JobListings/Create
+   [Authorize(Roles = "Company")]
    public IActionResult Create()
    {
       return View();
    }
    
    // POST: JobListings/Create
+   [Authorize(Roles = "Company")]
    [HttpPost]
    [ValidateAntiForgeryToken]
    public async Task<IActionResult> Create(
@@ -68,6 +73,7 @@ public class JobListingsController : Controller
    }
    
    // GET: JobListings/Edit/2
+   [Authorize(Roles = "Company")]
    public async Task<IActionResult> Edit(int? id)
    {
       if (id == null)
@@ -84,6 +90,7 @@ public class JobListingsController : Controller
    }
    
    // POST: JobListing/Edit/2
+   [Authorize(Roles = "Company")]
    [HttpPost]
    [ValidateAntiForgeryToken]
    public async Task<IActionResult> Edit(int id,
@@ -119,6 +126,7 @@ public class JobListingsController : Controller
    }
    
    // GET: JobListings/Delete/5
+   [Authorize(Roles = "Company")]
    public async Task<IActionResult> Delete(int? id)
    {
       if (id == null)
@@ -135,6 +143,7 @@ public class JobListingsController : Controller
    }
    
    // POST: JobListings/Delete/5
+   [Authorize(Roles = "Company")]
    [HttpPost, ActionName("Delete")]
    [ValidateAntiForgeryToken]
    public async Task<IActionResult> DeleteConfirmed(int id)

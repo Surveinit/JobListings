@@ -56,10 +56,25 @@
         <!-- Profile dropdown -->
         <div class="relative ml-3">
           <div>
+            @* Login start *@
+            @if (User.Identity.IsAuthenticated)
+            {
+              <form method="post" asp-area="Identity" asp-page="/Account/Logout">
+                <button type="submit" class="btn btn-link">Logout</button>
+              </form>
+            }
+            else
+            {
+              <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+              <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+            }
+            
+            @* login ends *@
+            
             <button id="user-menu-button" type="button" aria-expanded="false" aria-haspopup="true" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800">
               <span class="absolute -inset-1.5"></span>
               <span class="sr-only">Open user menu</span>
-              <img src="https://tcj-education.com/cms/wp-content/uploads/2021/06/1907027_%E7%8E%8B%E3%80%80%E5%A5%95%E5%8D%9A.jpg" alt="" class="size-8 rounded-full" />
+              <img src="https://tcj-education.com/cms/wp-content/uploads/2021/06/1907027_%E7%8E%8B%E3%80%80%E5%A5%95%E5%8D%9A.jpg" alt="" class="size-8 rounded-full"/>
             </button>
           </div>
         </div>
