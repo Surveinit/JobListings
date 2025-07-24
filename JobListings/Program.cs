@@ -26,31 +26,31 @@ using (var scope = app.Services.CreateScope())
     await RoleSeeder.SeedRoles(services);
 }
 
-// Middlewares
-app.UseStaticFiles();
-app.UseRouting();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapDefaultControllerRoute();
-app.MapRazorPages();
-
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline. (Middleware Order is CRITICAL)
+// 1. Error Handling (should be near the top, after app.Build())
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
+// 2. HTTP Redirection (e.g., HTTP to HTTPS)
 app.UseHttpsRedirection();
+
+// 3. Serve Static Files (from wwwroot)
 app.UseStaticFiles();
+
+// 4. Routing (Must be before Authentication/Authorization and Endpoint Mapping)
 app.UseRouting();
+
+// 5. Authentication and Authorization (Must be after UseRouting)
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=JobListings}/{action=Index}/{id?}");
+    pattern: "{controller=JobListings}/{action=Index}/{sd?}");
+
+app.MapRazorPages();
 
 app.Run();
