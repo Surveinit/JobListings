@@ -1,6 +1,7 @@
 using JobListings.Data;
 using JobListings.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,10 +10,15 @@ namespace JobListings.Controllers;
 public class JobListingsController : Controller
 {
    private readonly ApplicationDbContext _context;
+   private readonly UserManager<ApplicationUser> _userManager;
 
-   public JobListingsController(ApplicationDbContext context)
+   public JobListingsController(
+      ApplicationDbContext context,
+      UserManager<ApplicationUser> userManager
+      )
    {
       _context = context;
+      _userManager = userManager;
    }
    
    // GET: JobListings
@@ -59,10 +65,12 @@ public class JobListingsController : Controller
    [HttpPost]
    [ValidateAntiForgeryToken]
    public async Task<IActionResult> Create(
-      [Bind("Title, Company, Location, Description, Salary, JobType")] JobListing jobListing)
+      [Bind("Title, Location, Description, Salary, JobType")] JobListing jobListing)
    {
       if (ModelState.IsValid)
       {
+         var user = await _userManager.GetUserAsync(User);
+         jobListing.Company = user.CompanyName;
          jobListing.PostedDate = DateTime.Now;
          jobListing.IsActive = true;
          
