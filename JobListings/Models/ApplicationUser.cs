@@ -6,5 +6,5 @@ public class ApplicationUser : IdentityUser
 {
     // Fields
     public string CompanyName { get; set; }
-    public int EstablishmentYear { get; set; }
+    public int EstablishmentYear { get; set; 
 }
