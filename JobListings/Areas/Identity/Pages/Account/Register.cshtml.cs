@@ -71,6 +71,15 @@ namespace JobListings.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required]
+            [Display(Name = "Company Name")]
+            public string CompanyName { get; set; }
+            
+            [Required]
+            [Range(1600, 2025)]
+            [Display(Name = "Establishment Year")]
+            public int EstablishmentYear { get; set; }
+            
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -113,7 +122,13 @@ namespace JobListings.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                var user = new ApplicationUser
+                {
+                    UserName = Input.Email, 
+                    Email = Input.Email,
+                    CompanyName = Input.CompanyName,
+                    EstablishmentYear = Input.EstablishmentYear,
+                }; 
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

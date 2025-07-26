@@ -12,13 +12,29 @@
             <div asp-validation-summary="ModelOnly" class="text-red-600 text-sm mb-4" role="alert"></div>
 
             <div class="mb-4">
+                <label asp-for="Input.CompanyName" class="block text-sm font-medium leading-6 text-gray-900">Company Name</label>
+                <input asp-for="Input.CompanyName"
+                       class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                       aria-required="true"/>
+                <span asp-validation-for="Input.CompanyName" class="text-red-600 text-sm mt-1"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Input.EstablishmentYear" class="block text-sm font-medium leading-6 text-gray-900">Establishment Year</label>
+                <input asp-for="Input.EstablishmentYear"
+                       class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                       aria-required="true"/>
+                <span asp-validation-for="Input.EstablishmentYear" class="text-red-600 text-sm mt-1"></span>
+            </div>
+           
+            <div class="mb-4">
                 <label asp-for="Input.Email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
                 <input asp-for="Input.Email"
                        class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                        autocomplete="username" aria-required="true"/>
                 <span asp-validation-for="Input.Email" class="text-red-600 text-sm mt-1"></span>
             </div>
-
+            
             <div class="mb-4">
                 <label asp-for="Input.Password"
                        class="block text-sm font-medium leading-6 text-gray-900">Password</label>
