@@ -15,8 +15,14 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
    protected override void OnModelCreating(ModelBuilder modelBuilder)
    {
-      base.OnModelCreating(modelBuilder);
-      modelBuilder.Entity<JobListing>().Property(j => j.Salary).HasColumnType("decimal(18,2)");
+       base.OnModelCreating(modelBuilder);
+       modelBuilder.Entity<JobListing>()
+           .HasOne(j => j.Company)
+           .WithMany(c => c.JobListings)
+           .HasForeignKey(j => j.CompanyId)
+           .OnDelete(DeleteBehavior.Cascade);
+           // .Property(j => j.Salary)
+           // .HasColumnType("decimal(18,2)");
       
       // Seed Data
       modelBuilder.Entity<JobListing>().HasData(
