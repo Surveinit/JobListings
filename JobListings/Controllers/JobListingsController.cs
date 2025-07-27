@@ -70,7 +70,7 @@ public class JobListingsController : Controller
       if (ModelState.IsValid)
       {
          var user = await _userManager.GetUserAsync(User);
-         jobListing.Company = user.CompanyName;
+         jobListing.Company = user;
          jobListing.PostedDate = DateTime.Now;
          jobListing.IsActive = true;
          

@@ -24,7 +24,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
           {
             Id = 1,
             Title = "Software Development",
-            Company = "Toyota",
             Location = "Osaka, Japan",
             Description = "Develop Robust web application using ASP.NET Core MVC",
             Salary = 5794140,
@@ -36,7 +35,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
           {
               Id = 2,
               Title = "C# Development",
-              Company = "Honda",
               Location = "Tokyo, Japan",
               Description = "Develop Robust low level systems using C#",
               Salary = 4282500,
