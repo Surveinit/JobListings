@@ -67,15 +67,16 @@ public class JobListingsController : Controller
    public async Task<IActionResult> Create(
       [Bind("Title, Location, Description, Salary, JobType")] JobListing jobListing)
    {
+      var user = await _userManager.GetUserAsync(User);
+      jobListing.CompanyId = user.Id;
+      jobListing.PostedDate = DateTime.Now;
+      jobListing.IsActive = true;
+      
       if (ModelState.IsValid)
       {
-         var user = await _userManager.GetUserAsync(User);
-         jobListing.Company = user;
-         jobListing.PostedDate = DateTime.Now;
-         jobListing.IsActive = true;
-         
          _context.Add(jobListing);
          await _context.SaveChangesAsync();
+         return RedirectToAction(nameof(Index));
       }
       return View(jobListing);
    }

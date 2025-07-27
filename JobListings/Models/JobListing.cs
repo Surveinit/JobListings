@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
 namespace JobListings.Models;
 using System.ComponentModel.DataAnnotations;
 
@@ -15,6 +17,8 @@ public class JobListing
    public bool IsActive { get; set; } = true;
    
    // Relationship with AspUser
+   [ValidateNever]
    public string CompanyId { get; set; }
+   [ValidateNever]
    public ApplicationUser Company{ get; set; }
 }
