@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace JobListings.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialWithIdentity : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +30,8 @@ namespace JobListings.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
+                    CompanyName = table.Column<string>(type: "TEXT", nullable: false),
+                    EstablishmentYear = table.Column<int>(type: "INTEGER", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -50,26 +50,6 @@ namespace JobListings.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "JobListings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Company = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Location = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PostedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    JobType = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_JobListings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -178,13 +158,30 @@ namespace JobListings.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "JobListings",
-                columns: new[] { "Id", "Company", "Description", "IsActive", "JobType", "Location", "PostedDate", "Salary", "Title" },
-                values: new object[,]
+            migrationBuilder.CreateTable(
+                name: "JobListings",
+                columns: table => new
                 {
-                    { 1, "Toyota", "Develop Robust web application using ASP.NET Core MVC", true, "Full-time", "Osaka, Japan", new DateTime(2025, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 5794140m, "Software Development" },
-                    { 2, "Honda", "Develop Robust low level systems using C#", true, "Full-time", "Tokyo, Japan", new DateTime(2026, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 4282500m, "C# Development" }
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Location = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Salary = table.Column<decimal>(type: "TEXT", nullable: false),
+                    PostedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    JobType = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CompanyId = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobListings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_JobListings_AspNetUsers_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -223,6 +220,11 @@ namespace JobListings.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobListings_CompanyId",
+                table: "JobListings",
+                column: "CompanyId");
         }
 
         /// <inheritdoc />

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobListings.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250726072614_AddCompanyFieldsToUser")]
-    partial class AddCompanyFieldsToUser
+    [Migration("20250727151502_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,9 +97,8 @@ namespace JobListings.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Company")
+                    b.Property<string>("CompanyId")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
@@ -123,7 +122,7 @@ namespace JobListings.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -132,33 +131,9 @@ namespace JobListings.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("JobListings");
+                    b.HasIndex("CompanyId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Company = "Toyota",
-                            Description = "Develop Robust web application using ASP.NET Core MVC",
-                            IsActive = true,
-                            JobType = "Full-time",
-                            Location = "Osaka, Japan",
-                            PostedDate = new DateTime(2025, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Salary = 5794140m,
-                            Title = "Software Development"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Company = "Honda",
-                            Description = "Develop Robust low level systems using C#",
-                            IsActive = true,
-                            JobType = "Full-time",
-                            Location = "Tokyo, Japan",
-                            PostedDate = new DateTime(2026, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Salary = 4282500m,
-                            Title = "C# Development"
-                        });
+                    b.ToTable("JobListings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -293,6 +268,17 @@ namespace JobListings.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("JobListings.Models.JobListing", b =>
+                {
+                    b.HasOne("JobListings.Models.ApplicationUser", "Company")
+                        .WithMany("JobListings")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -342,6 +328,11 @@ namespace JobListings.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("JobListings.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("JobListings");
                 });
 #pragma warning restore 612, 618
         }
