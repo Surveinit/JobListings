@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Job Details";
+    var CurrentUserId = ViewBag.CurrentUserId as String;
 }
 
 <h1 class="text-3xl font-bold tracking-tight text-gray-900">@Model.Title</h1>
@@ -13,9 +14,13 @@
 <p><strong>Posted Date:</strong> @Model.PostedDate.ToString("MMMM dd, yyyy")</p>
 <p><strong>Status:</strong> @Model.IsActive</p>
 
-<div class="mt-3 space-x-2">
-    <a asp-action="Edit" asp-route-id="@Model.Id"
-       class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition ease-in-out duration-150">
-        Edit
-    </a>
-</div>
+@if (CurrentUserId == @Model.CompanyId)
+{
+    <div class="mt-3 space-x-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id"
+           class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition ease-in-out duration-150">
+            Edit
+        </a>
+    </div>
+}
+

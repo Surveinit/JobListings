@@ -49,6 +49,8 @@ public class JobListingsController : Controller
       {
          return NotFound();
       }
+     
+      ViewBag.CurrentUserId = _userManager.GetUserId(User);
       
       return View(jobListing);
    }
@@ -90,10 +92,16 @@ public class JobListingsController : Controller
          return NotFound();
       }
 
+      var user = await _userManager.GetUserAsync(User);
       var jobListing = await _context.JobListings.FindAsync(id);
       if (jobListing == null)
       {
          return NotFound();
+      }
+
+      if (jobListing.CompanyId != user.Id)
+      {
+         return Forbid();
       }
       return View(jobListing);
    }
