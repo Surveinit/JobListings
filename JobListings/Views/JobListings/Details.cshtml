@@ -6,13 +6,15 @@
 }
 
 <h1 class="text-3xl font-bold tracking-tight text-gray-900">@Model.Title</h1>
-<h2 class="text-xl"><strong>@Model.Company</strong></h2>
-<p><strong>Description:</strong> @Model.Description</p>
-<p><strong>Location:</strong> @Model.Location</p>
-<p><strong>Salary:</strong> @Model.Salary / year.</p>
-<p><strong>Job Type:</strong> @Model.JobType</p>
-<p><strong>Posted Date:</strong> @Model.PostedDate.ToString("MMMM dd, yyyy")</p>
-<p><strong>Status:</strong> @Model.IsActive</p>
+<h2 class="text-xl"><strong>@Model.Company.CompanyName</strong></h2>
+<div class="mt-3">
+    <p><strong>Description:</strong> @Model.Description</p>
+    <p><strong>Location:</strong> @Model.Location</p>
+    <p><strong>Salary:</strong> @Model.Salary / year.</p>
+    <p><strong>Job Type:</strong> @Model.JobType</p>
+    <p><strong>Posted Date:</strong> @Model.PostedDate.ToString("MMMM dd, yyyy")</p>
+    <p><strong>Status:</strong> @Model.IsActive</p>
+</div>
 
 @if (CurrentUserId == @Model.CompanyId)
 {

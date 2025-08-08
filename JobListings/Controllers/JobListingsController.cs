@@ -43,6 +43,7 @@ public class JobListingsController : Controller
       }
 
       var jobListing = await _context.JobListings
+         .Include(j => j.Company)
          .FirstOrDefaultAsync(m => m.Id == id);
 
       if (jobListing == null)
