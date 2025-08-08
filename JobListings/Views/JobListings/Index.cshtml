@@ -19,11 +19,11 @@
         {
             <a asp-action="Details" asp-route-id="@item.Id" class="block px-4 py-6 border border-gray-200 rounded-md">
                 <div class="font-bold text-blue-500 text-sm">
-                    <p>@item.Company</p>
+                    <p>@item.Company.CompanyName</p>
                 </div>
                 <div>
                     <strong>@item.Title</strong>: Pays @item.Salary / year.
-                </div>        
+                </div>
             </a>
         }
         </div>

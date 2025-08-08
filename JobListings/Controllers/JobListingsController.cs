@@ -26,6 +26,7 @@ public class JobListingsController : Controller
    public async Task<IActionResult> Index()
    {
       var jobListings = await _context.JobListings
+         .Include(j => j.Company)
          .Where(j => j.IsActive)
          .OrderByDescending(j => j.PostedDate)
          .ToListAsync();
