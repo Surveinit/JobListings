@@ -103,7 +103,7 @@ public class JobListingsController : Controller
    [HttpPost]
    [ValidateAntiForgeryToken]
    public async Task<IActionResult> Edit(int id,
-      [Bind("Id, Title, Company, Location, Description, Salary, PostedDate, JobType, IsActive")] JobListing jobListing)
+      [Bind("Id, Title, Location, Description, Salary, PostedDate, JobType, IsActive")] JobListing jobListing)
    {
       if (id != jobListing.Id)
       {
@@ -114,6 +114,10 @@ public class JobListingsController : Controller
       {
          try
          {
+            var user = await _userManager.GetUserAsync(User);
+            // Manual update
+            jobListing.CompanyId = user.Id;
+            
             _context.Update(jobListing);
             await _context.SaveChangesAsync();
          }
